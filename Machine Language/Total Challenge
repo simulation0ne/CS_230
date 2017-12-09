@@ -1,0 +1,459 @@
+ANSWER: data	; Output the answer at the top for easy viewing
+R_NUMERATOR: data	; Output the numerator of the remainder
+R_DENOMINATOR: data	; Output the denominator of the remainder
+
+counter: data		; Initialize a counter to iterate through loops
+neg_flag: data		; For declaring negative usage
+exp_neg_flag: data	; For use with exponents
+temp: data		; For use with exponents
+;===========================================================================
+;===========================================================================
+
+;CHOOSE WHAT YOU WANT TO DO FROM THE LIST BELOW:
+; 1 - Add
+; 2 - Subtract
+; 3 - Multiply
+; 4 - Divide
+; 5 - Exponents
+
+;ENTER YOUR CHOICE HERE:
+
+	choice: data
+
+;ENTER YOUR TWO INPUTS HERE:
+
+	input1: data
+	input2: data
+
+;Now I will test for your choice
+	lod choice
+	jmz end
+	sub-c 1
+	jmz Add
+	sub-c 1
+	jmz Subtract
+	sub-c 1
+	jmz Multiply
+	sub-c 1
+	jmz Divide
+	sub-c 1
+	jmz Exponents
+	jmp end
+
+;Addition Loop
+;==================================================================
+
+Add:
+
+	lod input1	; Load input1
+	add input2	; Add input2 to what is in AC(input1)
+	sto answer	; Store what is in AC(input1+input2) in 'answer'
+	lod-c 0		; Reset AC to 0(just because it makes me happy)
+	jmp end		; Stop the program with a hlt command
+
+;Subtraction Loop
+;==================================================================
+
+Subtract:
+
+	lod input1	; Load input1
+	sub input2	; Subtract input2 from what is in AC(input1)
+	sto answer	; Store what is in AC(input1-input2) in 'answer'
+	lod-c 0		; Reset AC to 0(just because it makes me happy)
+	jmp end		; Stop the program with a hlt command
+
+;Multiplication Loop
+;==================================================================
+
+Multiply:
+	
+	lod input2	; Load input2
+	jmn neg_fix_mul	; Jump to neg_counter if the second factor is negative
+
+	;Positive Multiplication Loop
+	;===========================================================
+	
+	pos_mul:
+		lod input2	; Load input2
+		sub counter	; Subtract counter from what is in AC(input2)
+		jmz m_neg_check	; Stop program if it is zero(max iterations done)
+		
+		lod answer	; Otherwise, load answer
+		add input1	; Add input1 to what is in AC(answer)
+		sto answer	; Store the result back in answer
+
+		lod counter	; Now load the counter
+		inc		; Increment it by 1
+		sto counter	; Store it back into counter
+		
+		jmp pos_mul	; Jump back to the top to iterate again
+	
+	;Negative Fix
+	;===========================================================
+	
+	neg_fix_mul:
+		lod-c 1		; Load a 1 into the AC
+		sto neg_flag	; Store that into the negative flag
+		lod input2	; Load input2
+		sub input2	; Subtract input2 from itself to get 0
+		sub input2	; Subtract input2 again to get a positive input2
+		sto input2	; Store that into input2
+		jmp pos_mul	; Now multiply as normal
+
+	;Check For Negative Answer
+	;===========================================================
+	
+	m_neg_check:
+		lod neg_flag	; Load the value of neg_flag
+		jmz end		; If it is zero, a positive is fine end the program
+		lod answer	; Otherwise load the answer
+		sub answer	; Subtract the answer from itself to get 0
+		sub answer	; Subtract again to get a negative answer
+		sto answer	; Store that back into answer
+		jmp end		; Now we can end the program
+	
+		
+;Division Loop
+;==================================================================
+Divide:
+	lod input1	; Load input1
+	jmz input_0	; If zero, jump to input_0
+	lod input2	; Load input2
+	jmz input_0	; If zero, jump to input_0
+	
+	lod input1	; Load input1
+	jmn dvdnd_neg	; If negative jump to dvdnd_neg
+	lod input2	; Otherwise, load input2
+	jmn dvsr_neg	; If negative jump to dvsr_neg
+
+	;Positive Division Loop
+	;===========================================================
+	
+	pos_div:
+		lod input1 	; Load input 1
+		sub input2	; Subtract input2
+		jmz div_done	; If zero, then finalize division
+		jmn calc_r	; If negative, calculate the remainder
+
+		sto input1	; Otherwise, store the result back in input1
+		
+		lod answer	; Load answer
+		inc		; Increment it
+		sto answer	; Store it back in answer
+
+		jmp pos_div	; Jump back to the top to iterate again
+	
+
+	;Dividend is Negative
+	;===========================================================
+
+	dvdnd_neg:
+		lod input2 	; Load input2
+		jmn mk_bth_pos 	; If negative as well, make both positive
+		
+		lod input1	; Otherwise, load input1
+		sub input1	; Subtract input1 from itself to get 0
+		sub input1	; Subtract input1 again to get a positive input1
+		sto input1	; Store that back in input1
+		
+		lod-c 1		; Load the number 1
+		sto neg_flag	; Store it into the neg_flag
+
+		jmp pos_div	; Now jump to pos_div and divide as normal
+
+		;Dividend is Negative
+	;===========================================================
+
+	dvsr_neg:
+		lod input2	; Load input2
+		sub input2	; Subtract input2 from itself to get 0
+		sub input2	; Subtract input2 again to get a positive input2
+		sto input2	; Store it back in input2
+
+		lod-c 1		; Load the number 1
+		sto neg_flag	; Store it into the neg_flag
+
+		jmp pos_div	; Now jump to pos_div and divide as normal
+
+	;Finalize Division
+	;===========================================================
+
+	;Make Both Positive
+	;===========================================================
+
+	mk_bth_pos:
+		lod input1	; Load input1
+		sub input1	; Subtract input1 from itself to get 0
+		sub input1	; Subtract input1 again to get a positive input1
+		sto input1	; Store it back in input1
+
+		lod input2	; Load input2
+		sub input2	; Subtract input2 from itself to get 0
+		sub input2	; Subtract input2 again to get a positive input2
+		sto input2	; Store it back in input2
+
+		jmp pos_div	; Jump to pos_div and divide as normal
+
+	div_done: 
+		lod answer	; Load answer
+		inc 		; Increment it one more time
+		sto answer	; Store it back in answer
+		jmp d_neg_check	; Stop the program	
+	
+	;Calculate the Remainder
+	;===========================================================
+
+	calc_r:
+		lod input1		; Load the value of input1
+		sto r_numerator		; Store it in the numerator of the remainder
+		lod input2		; Load input2
+		sto r_denominator	; Store it in the denominator of the remainder
+		
+		jmp d_neg_check	; Stop the program
+	
+	;Check For Negative Answer
+	;===========================================================
+
+	d_neg_check:
+		lod neg_flag	; Load the neg_flag
+		jmz end		; If zero stop the program
+		
+		lod answer	; Otherwise, load the answer
+		sub answer	; Subtract the answer from itself
+		sub answer	; Subtract answer again to get a negative
+		sto answer	; Store back into answer
+
+		lod answer	; Load the answer
+		jmz r_neg	; If zero, jump to r_neg
+
+		jmp end		; Otherwise, Stop the program
+
+	;Setting a Negative Remainder
+	;===========================================================
+
+	r_neg:	
+		lod r_numerator	; Load the numerator of the remainder
+		sub r_numerator	; Subtract the r_numerator from itself to get 0
+		sub r_numerator	; Subtract r_numerator again to get a negative
+		sto r_numerator	; Store it back into r_numerator
+
+		jmp end		; Stop the program
+
+		
+	;One of the Inputs is 0
+	;===========================================================
+
+	input_0:
+		lod-c 0		; Load the number 0
+		sto answer	; Store it in answer
+		jmp end		; Stop the program
+
+;Exponenential Loop
+;==================================================================
+Exponents:
+
+	lod input1	; Load input1
+	jmz input1_0	; If zero, jump to input1_0
+	lod input2	; Load input2
+	jmz input2_0	; If zero, jump to input2_0
+
+	lod input2	; Load input2
+	sub-c 1		; Subtract 1
+	jmz input2_1	; If zero jump to 
+	lod input2	; Load input2
+	add-c 1		; Add 1
+	jmz input2_neg1	; If zero, jump to input2_neg1
+
+	lod input1	; Load input1
+	jmn neg_base	; If negative, jump to neg_base
+	lod input2	; Load input2
+	jmn neg_exp	; If negative, jump to neg_exp
+
+start_exp:
+	ex_counter: 1	; Initialize a special exponent counter
+	cur_mult: data	; Initialize a special exponent multiple
+	lod input1	; Load input1
+	sto cur_mult	; Store it into cur_mult
+
+	ex_calc:
+		lod input2	; Load input1
+		sub ex_counter	; Subtrac the ex_counter
+		jmz exp_done	; If zero, stop the program
+		
+		lod ex_counter	; Otherwise, load the counter
+		inc		; Increment it
+		sto ex_counter	; Store it back in counter
+	
+		lod-c 0 	; Load the number 0
+		sto counter	; Store it in counter to reset it
+		sto answer	; Store it in answer to reset it
+
+		ex_mul:
+			lod input1	; Load input1
+			sub counter	; Subtract the counter
+			jmz ud_cur_mult	; If zero jump to ud_cur_mul to update the current multiplier
+		
+			lod answer	; Otherwise, load answer
+			add cur_mult	; Add input1 to answer
+			sto answer	; Store it back into answer
+
+			lod counter	; Load the counter
+			inc		; Increment it
+			sto counter	; Store it back in counter
+
+			jmp ex_mul	; Jump back to top to iterate again
+
+			
+
+	;Update Current Multiplier
+	;===========================================================
+	
+	ud_cur_mult:
+		lod answer	; Load the current answer
+		sto cur_mult	; Store it in cur_mult
+
+		jmp ex_calc	; Jump back up to top to iterate again
+
+	;Modify for a 0 as input1
+	;===========================================================
+
+	input1_0: 	
+		lod-c 0 	; Load the number 0
+		sto answer	; Store it in answer
+		jmp end		; Stop the program
+
+	;Modify for a 0 as input2
+	;===========================================================
+
+	input2_0: 	
+		lod-c 1 	; Load the number 0
+		sto answer	; Store it in answer
+		jmp end		; Stop the program
+
+	;Modify for a 1 as input2
+	;===========================================================
+
+	input2_1: 	
+		lod input1 	; Load input1
+		sto answer	; Store it in answer
+		jmp end		; Stop the program
+
+	;Modify for a -1 as input2
+	;===========================================================
+
+	input2_neg1: 	
+		lod input1 		; Load input1
+		sto r_denominator	; Store it in denominator of the remainder
+		lod input2		; Load input2
+		sto r_numerator		; Store it in the numerator of the remainder
+		jmp end			; Stop the program
+
+	;Modify for a Negative Base
+	;===========================================================
+		
+	neg_base:
+
+		lod input2		; Load input2
+		jmn neg_base_exp	; If negative, jump to neg_base_exp
+		neg_base_con:
+		
+
+		lod input1	; Load input1
+		sub input1	; Subtract input1 from itself to get 0
+		sub input1	; Subtract input1 again to get a positive
+		sto input1	; Store it back in input 1
+
+		lod input2	; Load input2
+		sto temp	; Store in temp to avoid messing with input2
+		
+		take_2:
+			lod temp	; Load temp
+			sub-c 2		; Subtract 2
+			sto temp	; Store back in temp
+			jmz start_exp	; If zero, it is even, jump to start of calculation
+			jmn s_neg_flag	; If negative, it is odd, jump to setting negative flag
+	
+			jmp take_2	; Otherwise, it is still too large, jump back to top to do it again
+
+	;Modify for Negative Exponent with Negative Base
+	;===========================================================
+	
+	neg_base_exp: 
+		lod input2	; Load input2
+		sub input2	; Subtract input2 from itself to get 0
+		sub input2	; Subtract input2 again to get positive
+		sto input2	; Store it back into input2
+
+		lod-c 1		; Load number 1
+		sto exp_neg_flag; Store it in the negative flag for exponents
+
+		jmp neg_base_con
+
+	;Modify for a Negative Exponent
+	;===========================================================
+	
+	neg_exp: 
+		lod input2	; Load input2
+		sub input2	; Subtract input2 from itself to get 0
+		sub input2	; Subtract input2 again to get positive
+		sto input2	; Store it back into input2
+
+		lod-c 1		; Load number 1
+		sto exp_neg_flag; Store it in the negative flag for exponents
+
+		jmp start_exp
+
+	;Set the Negative Flag
+	;===========================================================	
+	
+	s_neg_flag:	
+		lod-c 1		; Load number 1
+		sto neg_flag	; Store it in negative flag
+		
+		jmp start_exp	; Jump to start calculation as normal
+
+	;Calculation is Done, Check for Negative
+	;===========================================================	
+	
+	exp_done:
+
+		lod exp_neg_flag	; Load the negative flag for exponents
+		sub-c 1			; Subtract 1
+		jmz exp_neg_flag_on	; If it is zero, jump to exp_neg_flag_on
+		
+		lod neg_flag		; Load the negative flag
+		jmz end			; If zero, ignore and stop program
+
+		lod answer		; Otherwise, load the answer
+		sub answer		; Subtract answer from itself to get 0
+		sub answer		; Subtract answer again to get a negative
+		sto answer		; Store it back in answer
+
+		jmp end			; Stop the program
+
+	;Calculation is Done, Check for Negative
+	;===========================================================	
+	
+	exp_neg_flag_on:
+		lod-c 1			; Load the number 1
+		sto r_numerator		; Store it in the numberator of the remainder
+		lod answer		; Load the answer
+		sto r_denominator	; Store it in the denominator of the answer
+		lod-c 0			; Load the number 0
+		sto answer		; Store it in answer to set it to 0
+	
+		lod neg_flag		; Load the negative flag
+		jmz end			; If zero, stop the program
+
+		lod r_numerator		; Otherwise, load the numerator of the remainder
+		sub r_numerator		; Subtract the r_numerator from itself to get 0
+		sub r_numerator		; Subtrac r_numerator again to get a negative
+		sto r_numerator		; Store it back into the numerator of the remainder
+
+		jmp end			; Stop the program
+		
+		
+	
+			
+@1023
+end: hlt
