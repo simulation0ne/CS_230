@@ -1,0 +1,9 @@
+body{
+	background-color: #6391F7;
+}
+.jumbotron{
+	margin: 20vh;
+}
+button{
+	cursor: pointer;
+}

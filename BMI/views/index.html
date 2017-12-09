@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/index.css" type="text/css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="jumbotron">
+            <form action="/calcBMI" onsubmit="validateForm();" method="POST">
+            <fieldset>
+            <legend>Calculate BMI</legend>
+            <hr>
+            <label class="row">Height</label>
+            <div class="form-group row">
+              <label for="height-ft" class="col-sm-2 offset-sm-2 col-form-label">Feet:</label>
+              <div class="col-sm-6">
+                <select class="form-control" name="height-ft" id="height-ft">
+                      <option>0</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                      <option>6</option>
+                      <option>7</option>
+                    </select>
+              </div> <!-- /.col-sm-10 -->
+            </div> <!-- /.form-group row -->
+            <div class="form-group row">
+              <label for="height-in" class="col-sm-2 offset-sm-2 col-form-label">Inches</label>
+              <div class="col-sm-6">
+                <select class="form-control" name="height-in" id="height-in">
+                  <option>0</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  <option>9</option>
+                  <option>10</option>
+                  <option>11</option>
+                  <option>12</option>
+                </select>
+              </div> <!-- /.form-control -->
+            </div> <!-- /.form-group row -->
+            <label class="row">Weight</label>
+            <div class="form-group row">
+              <label for="weight" class="col-sm-2 offset-sm-2 col-form-label">Weight</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" name="weight" id="weight" Placeholder="weight">
+              </div> <!-- /.col-sm-6 -->
+            </div> <!-- /.form-group row -->
+            <div class="form-group row">
+              <label for="weight_method" class="col-sm-2 offset-sm-2 col-form-label">Lbs / Kg</label>
+              <div class="col-sm-6">
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="weight_method" id="lbs" value="lbs"> Pounds(lbs)
+                  </label>
+                </div> <!-- /.form-check form-check-inline -->
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="weight_method" id="kg" value="kg"> Kilograms(kg)
+                  </label>
+                </div> <!-- /.form-check form-check-inline -->
+              </div> <!-- /.col-sm-6 -->
+            </div> <!-- /.form-group row -->
+            <div class="form-group row">
+              <div class="col-sm-6 offset-sm-4">
+                <input type="submit" class="btn btn-success" value="Calculate Your BMI">
+              </div> <!-- /.col-sm-6 offset-sm-4 -->
+            </div> <!-- /.form-group row -->
+            </fieldset>
+            </form>
+          </div> <!-- /.jumbotron -->
+        </div> <!-- /.col-md-12  -->
+      </div> <!-- /.row  -->
+    </div> <!-- /.container  -->
+
+
+<script>
+function errorCheck() {
+  feet = document.getElementById("height-ft").value;
+  inches = document.getElementById("height-in").value;
+  weight = document.getElementById("weight").value;
+  weight_method = document.getElementsByName("weight_method");
+  if (feet == 0 && inches == 0) {
+    alert("Please enter a value in the height boxes.");
+    return true
+  } else if (weight === "") {
+    alert("Please enter a weight value.");
+    return true
+  } else if (isNaN(weight)) {
+    alert("Please enter a valid weight.");
+    return true
+  } else {
+    for (var i=0; i<weight_method.length; i++) {
+      if (weight_method[i].checked) {
+        has_wm = true
+        break
+      } else {
+        has_wm = false
+      }
+    }
+    if (has_wm) {
+      return false
+    } else {
+      alert("Please select either pounds or kilgrams.")
+      return true
+    }
+  }
+}
+function validateForm() {
+  hasError = errorCheck();
+  if (hasError) {
+    event.preventDefault(); 
+  }
+}
+</script>
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  </body>
+</html>

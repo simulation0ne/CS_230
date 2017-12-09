@@ -1,0 +1,9 @@
+body{
+	background-color: #6391F7;
+}
+.jumbotron{
+	margin: 20vh;
+}
+.btn, .form-check-input, select{
+	cursor: pointer;
+}
