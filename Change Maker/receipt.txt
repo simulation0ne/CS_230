@@ -1,0 +1,21 @@
+		Food Shop
+
+----------------------------------------
+Table:	1	Chk#:	1111	Guest:	1
+----------------------------------------
+
+Soda................$ 1.00
+Pizza slice.........$ 3.00
+Ice cream...........$ 2.50
+___________________________________
+
+Sub-total:          $ 6.50
+Tax:                $ 0.46
+Total:              $ 6.96
+
+Tendered:           $10.00
+Change Due:         $ 3.04
+
+
+THANKS FOR DINING WITH US!
+PLEASE COME AGAIN
