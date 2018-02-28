@@ -4,7 +4,7 @@ This was my first web app built in python, I used Bottle.py, and all it does is 
 
 ### To run the app:
 > Prerequisites:
-  * Python3
+> * Python3
   
 * Once you have python3 downloaded, clone the repo.
 * `cd` into the repo, and then the BMI directory.
