@@ -1,12 +1,22 @@
 # BMI - First Bottle.py Web App
 
-This was my first web app.  Used Bottle.py, which is a verison of Flask.  This web app just calculates BMI of a user.
-Two page app. I included full error checking for the form.
+This was my first web app built in python, I used Bottle.py, and all it does is take in the size of a user and give them their bmi.
 
 ### To run the app:
+> Prerequisites:
+  * Python3
+  
+* Once you have python3 downloaded, clone the repo.
+* `cd` into the repo, and then the BMI directory.
+* run `python3 app.py`
+* Open your browser and go to http://localhost:8080/
 
-* Clone to your machine.
-* Navigate to BMI directory.
-* run python app.py.
-* Use your browser to go to the url specified.
-* Find out your BMI.
+![](./imgs/home.png)
+This is the home page, where you can enter your size and weight, in kg or lbs.
+
+Both fields are required, and do basic error checking.
+
+* click submit
+![](./imgs/result.png)
+
+This is the result page, which tells you your BMI, as well as whether you classify as 'underweight', 'normal', 'overweight', or 'obese'.
