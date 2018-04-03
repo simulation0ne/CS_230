@@ -73,7 +73,7 @@ class Menu(object):
 
     @staticmethod
     def _print_menu():
-        print("\nHere is our menu, please take your time\n")
+        print("\nHere is our menu, please take your time. (Type 'nothing' to end the order)\n")
         for item in Menu._menu.keys():
             print(item.capitalize()+("." * (25 - len(item))) + "$ {0:>4.2f}".format(Menu._menu[item]))
 
@@ -128,7 +128,7 @@ class Receipt(object):
             info_line = "Table:\t1\tChk#:\t1111\tGuest:\t1\n"
             receipt.write("-" * 40 + "\n" + info_line + "-" * 40 + "\n")
             receipt.write("\n")
-            receipt.write(itemized)
+            # receipt.write(itemized)
             receipt.write("_" * 35 + "\n")
             subtotal = total
             subtotal_str = (" " * (20 - (len("Sub-total: ")))) + "${:>5.2f}\n".format(subtotal)
@@ -159,7 +159,5 @@ class Printer(object):
             print("Sorry we were not able to print your receipt:( Try on a Windows or Mac please.")
 
 register1 = Register()
-while register1.drawer_count > 0:
-    print("\nWelcome to Food Shop! Where you can satisfy all your hunger needs!")
-    register1.order()
-    break
+print("\nWelcome to Food Shop! Where you can satisfy all your hunger needs!")
+register1.order()
