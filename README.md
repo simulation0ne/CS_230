@@ -1,7 +1,6 @@
 # CS_230
 My first programs
 
-### Each app includes its own README to tell you a little about the app and how I built it, as well as how to run it.
+These python programs are the first that I ever built as a Computer Science Major at IUPUI. In all of the class assignemnts, I went well above and beyond the minimum requirements to both challenge myself, and enjoy what I had built. I particularly enjoyed the projects with TKinter and Web apps. The journey these programs took me on in one semester was incredible. I went from nearly no programming experience to building neat, fun, and eventually powerful apps that I was proud to show off. I plan to continue learning and growing in my Computer Science Career, and cannot wait to see what is next!
 
-These are all programs I built during CS_230 at IUPUI.  I went from almost no programming experience to building a decent web application at the end of the semester for my final project. **https://github.com/djpeach/InventoryManagementDashboard**
-I enjoyed every bit of it, and can't wait to see what's next!
+To see my final project for this class, check out the repo I have it in here on github. **https://github.com/djpeach/InventoryManagementDashboard**
