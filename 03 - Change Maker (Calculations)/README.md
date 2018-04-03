@@ -20,7 +20,7 @@ NOTE:
     * > Depending how you have Python installed, you may have to run `python3 --version` to see your Python 3 version number.
     * If you see a version starting with 3.6.x, you have a suitable version installed. 
     * If you do not, install the latest version here: [Download Python 3](https://www.python.org/downloads/)
-* Open the *CS_230* folder on your machine, find the *02 - Knock Knock (Input)* folder, and open it in Command Prompt on Windows and Terminal on Mac.
+* Open the *CS_230* folder on your machine, find the *03 - Change Maker (Calculations)* folder, and open it in Command Prompt on Windows and Terminal on Mac.
 * Type `python change_maker.py` and press **Enter** to run the basic assignemnt, or type `python change_maker_black_belt.py` to run the black belt version of the project.
     > Depending on how you have **Python** setup, you may have to run `python3 `, followed by the program/file name.
 
