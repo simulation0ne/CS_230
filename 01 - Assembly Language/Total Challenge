@@ -9,18 +9,19 @@ temp: data		; For use with exponents
 ;===========================================================================
 ;===========================================================================
 
-;CHOOSE WHAT YOU WANT TO DO FROM THE LIST BELOW:
+;STEP 1 - CHOOSE WHAT YOU WANT TO DO FROM THE LIST BELOW:
+; 0 - Quit
 ; 1 - Add
 ; 2 - Subtract
 ; 3 - Multiply
 ; 4 - Divide
 ; 5 - Exponents
 
-;ENTER YOUR CHOICE HERE:
+;STEP 2 - ENTER YOUR CHOICE HERE:
 
 	choice: data
 
-;ENTER YOUR TWO INPUTS HERE:
+;STEP 3 - ENTER YOUR TWO INPUTS HERE:
 
 	input1: data
 	input2: data
