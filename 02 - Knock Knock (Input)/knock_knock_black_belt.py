@@ -51,7 +51,7 @@ if do_joke in yes_answers:
         # pause between each "HA"
         pause(.3)
     # At the end, print out a smile with no new line
-    stdout.write(":)")
+    stdout.write(":)\n")
 else:
     print("Oh well, maybe next time. Bye!")
 
