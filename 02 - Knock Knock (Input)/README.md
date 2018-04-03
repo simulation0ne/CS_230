@@ -19,6 +19,7 @@
     * If you do not, install the latest version here: [Download Python 3](https://www.python.org/downloads/)
 * Open the *CS_230* folder on your machine, find the *02 - Knock Knock (Input)* folder, and open it in Command Prompt on Windows and Terminal on Mac.
 * Type `python knock_knock_basic.py` and press **Enter** to run the basic assignemnt, or type `python knock_knock_black_belt.py` to run the black belt version of the project.
+    > Depending on how you have **Python** setup, you may have to run `python3 `, followed by the program/file name.
 
 
 ## Summary 
